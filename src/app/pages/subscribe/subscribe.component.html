@@ -1,0 +1,27 @@
+<div class="modal fade" id="subscribeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Regístrate para una clase gratis</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="subscribeForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Número (+51 obligatorio)</label>
+            <input type="tel" class="form-control" formControlName="phone" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Correo</label>
+            <input type="email" class="form-control" formControlName="email" required>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="subscribeForm.invalid">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

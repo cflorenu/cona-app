@@ -1,0 +1,36 @@
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #FFC107 !important;
+}
+
+.btn-purple {
+  background-color: #6f42c1;
+  color: white;
+  border: 2px solid #6f42c1;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-purple:hover {
+  background-color: #5a32a3;
+  border-color: #5a32a3;
+}
+
+.text-purple {
+  color: #6f42c1 !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-collapse .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar-collapse .navbar-nav {
+    text-align: center;
+    width: 100%;
+  }
+
+  .navbar-collapse .nav-item {
+      padding: 5px 0;
+  }
+}

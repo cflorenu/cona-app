@@ -1,0 +1,49 @@
+
+.bowl {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+h2 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+}
+
+textarea.form-control {
+  resize: none;
+}
+
+.btn-warning {
+  background-color:rgba(255, 193, 7, 1);
+  border: none;
+  padding: 10px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.text-purple {
+  color: #6a0dad;
+}
+
+

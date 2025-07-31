@@ -1,0 +1,101 @@
+<div class="hero position-relative text-white">
+  <video autoplay muted="true" loop>
+    <source src="assets/wrestling.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <div class="position-absolute top-50 start-50 translate-middle text-center">
+    <h1 class="fw-bold">
+      <span class="text-purple me-2">Con</span>
+      <span class="text-warning me-2">Atletas</span>
+      <span class="text-white">Sur</span>
+    </h1>
+    <p>Comienza tu camino en las artes marciales hoy.<br>De principiante a profesional al alcance de tus manos</p>
+    <div class="mt-3">
+      <button class="btn btn-warning btn-lg me-2" (click)="showModal = true">Horario de clases</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container py-5">
+  <div class="row align-items-center mb-5">
+    <div class="col-md-6">
+      <img src="assets/jiu-jitsu.jpg" class="img-fluid rounded-3 shadow">
+    </div>
+    <div class="col-md-6">
+      <h6 class="text-warning text-uppercase">Clases de:</h6>
+      <h2 class="fw-bold">Jiu Jitsu</h2>
+      <p>
+        Domina el arte del control con el Jiu-Jitsu. Esta disciplina te enseñará
+        a utilizar la técnica y la estrategia para someter a tus oponentes, sin
+        importar su tamaño o fuerza. Perfecto para quienes buscan autodefensa y confianza.
+      </p>
+      <button class="btn btn-warning">Ver clases</button>
+    </div>
+  </div>
+
+  <div class="row align-items-center flex-row-reverse">
+    <div class="col-md-6">
+      <img src="assets/muay-thai.jpg" class="img-fluid rounded-3 shadow">
+    </div>
+    <div class="col-md-6">
+      <h6 class="text-warning text-uppercase">Clases de:</h6>
+      <h2 class="fw-bold">Muay Thai</h2>
+      <p>
+        Conocido como el "arte de los ocho miembros", el Muay Thai te enseñará a
+        utilizar tus puños, codos, rodillas y pies con precisión y poder. Mejora tu
+        condición física y aprende técnicas letales en este deporte de combate.
+      </p>
+      <button class="btn btn-warning">Ver clases</button>
+    </div>
+  </div>
+
+  <div class="row align-items-center mb-5">
+    <div class="col-md-6">
+      <img src="assets/sambo.jpg" class="img-fluid rounded-3 shadow">
+    </div>
+    <div class="col-md-6">
+      <h6 class="text-warning text-uppercase">Clases de:</h6>
+      <h2 class="fw-bold">Sambo</h2>
+      <p>
+        Domina el arte del control con el Jiu-Jitsu. Esta disciplina te enseñará
+        a utilizar la técnica y la estrategia para someter a tus oponentes, sin
+        importar su tamaño o fuerza. Perfecto para quienes buscan autodefensa y confianza.
+      </p>
+      <button class="btn btn-warning">Ver clases</button>
+    </div>
+  </div>
+
+  <div class="row align-items-center flex-row-reverse">
+    <div class="col-md-6">
+      <img src="assets/boxeo.jpg" class="img-fluid rounded-3 shadow">
+    </div>
+    <div class="col-md-6">
+      <h6 class="text-warning text-uppercase">Clases de:</h6>
+      <h2 class="fw-bold">Boxeo</h2>
+      <p>
+        Conocido como el "arte de los ocho miembros", el Muay Thai te enseñará a
+        utilizar tus puños, codos, rodillas y pies con precisión y poder. Mejora tu
+        condición física y aprende técnicas letales en este deporte de combate.
+      </p>
+      <button class="btn btn-warning">Ver clases</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" [ngClass]="{'show d-block': showModal}" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="scheduleModalLabel">Horario de Clases</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="showModal = false" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <img src="assets/horario.png" class="img-fluid w-100 rounded-3" alt="Horario de Clases">
+      </div>
+    </div>
+  </div>
+</div>

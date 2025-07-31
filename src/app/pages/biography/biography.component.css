@@ -1,0 +1,68 @@
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px gold;
+}
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%;
+  height: auto;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.text-custom-yellow {
+  color: #FFC107;
+}
+
+.text-black {
+  color: black;
+}
+
+.text-purple {
+  color: purple;
+}
+
+.container.my-5 .row img {
+  max-width: 450px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+
+.hero-section .hero-img {
+  max-width: 100%;
+  height: 50vh;
+  object-fit: cover;
+}
+
+
+
+@media (max-width: 767.98px) {
+  .container.my-5 .row hr.w-50 {
+    width: 80% !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .container.my-5 .row img {
+    max-width: 90%;
+  }
+}

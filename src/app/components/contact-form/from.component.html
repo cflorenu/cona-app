@@ -1,0 +1,55 @@
+<div class="bowl">
+  <h2 class="text-center">
+    Escríbenos y <span class="text-warning me-2">agenda</span>
+    <span class="text-purple">una sesión</span>!
+  </h2>
+  <form class="contact-form" #contactForm="ngForm" (ngSubmit)="submitForm(contactForm)">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" name="nombre_completo" class="form-control" placeholder="Ingresa tu nombre"
+          required [(ngModel)]="contactForm.value.nombre_completo">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="_replyto" class="form-control" placeholder="Ingresa tu email" required
+          [(ngModel)]="contactForm.value._replyto">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="phone">Teléfono</label>
+        <input type="text" id="phone" name="telefono" class="form-control" placeholder="Ingresa tu teléfono"
+          [(ngModel)]="contactForm.value.telefono">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="country-code">Código de país</label>
+        <input type="text" id="country-code" name="codigo_pais" class="form-control"
+          [ngModel]="codigoPaisPredeterminado" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="mensaje" class="form-control" rows="3" placeholder="Ingresa tu duda aquí." required
+          [(ngModel)]="contactForm.value.mensaje"></textarea>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-warning" [disabled]="isSubmitting">
+        <span *ngIf="!isSubmitting">Enviar</span>
+        <span *ngIf="isSubmitting">Enviando...</span>
+      </button>
+    </div>
+
+    <div *ngIf="submissionStatus === 'success'" class="alert alert-success mt-3" role="alert">
+      ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.
+    </div>
+    <div *ngIf="submissionStatus === 'error'" class="alert alert-danger mt-3" role="alert">
+      Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo.
+    </div>
+  </form>
+</div>
