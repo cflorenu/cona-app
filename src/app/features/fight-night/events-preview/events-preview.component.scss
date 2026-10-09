@@ -1,0 +1,112 @@
+.fight-night {
+  min-height: 100vh;
+  padding-bottom: 3rem;
+  background: var(--fn-bg);
+  color: var(--fn-text);
+  font-family: var(--fn-font-body);
+}
+
+.demo-banner {
+  margin: 0;
+  padding: 0.4rem;
+  background: var(--fn-purple);
+  color: #fff;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.event-hero {
+  position: relative;
+  padding: 3rem 0 2.5rem;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(229, 56, 59, 0.25), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(58, 134, 255, 0.25), transparent 45%);
+  text-align: center;
+
+  &__kicker {
+    margin: 0;
+    color: var(--fn-gold);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0.25rem 0;
+    font-family: var(--fn-font-display);
+    font-size: clamp(2.6rem, 8vw, 5rem);
+    line-height: 1;
+  }
+
+  &__meta {
+    margin-bottom: 1.5rem;
+    color: var(--fn-text-muted);
+  }
+
+  &__cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    background: var(--fn-gold);
+    color: #111;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--fn-border);
+  border-radius: 999px;
+  background: var(--fn-surface);
+  color: var(--fn-text);
+  font-size: 0.8rem;
+}
+
+.section {
+  margin-top: 2.5rem;
+
+  &__title {
+    margin-bottom: 1rem;
+    font-family: var(--fn-font-display);
+    font-size: 2.4rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+}
+
+.roster-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+}
+
+.watch-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  align-items: start;
+}
+
+.watch-placeholder {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  background: var(--fn-surface);
+}
+
+// El navegador omite el render de los bloques largos fuera de pantalla (cartelera, roster).
+// El padding interno evita que la contención de pintado recorte las sombras al hacer hover.
+.section--offscreen {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+  padding-block: 1rem 2rem;
+}

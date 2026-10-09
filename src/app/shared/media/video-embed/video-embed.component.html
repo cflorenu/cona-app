@@ -1,0 +1,19 @@
+@if (embedUrl(); as url) {
+  <div class="embed">
+    @if (activated()) {
+      <iframe class="embed__frame" [src]="url" [title]="title()"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    } @else {
+      <button type="button" class="embed__facade" (click)="activate()" [attr.aria-label]="'Reproducir: ' + title()">
+        @if (thumbnail(); as src) {
+          <img class="embed__thumb" [src]="src" alt="" loading="lazy" decoding="async" width="480" height="360">
+        }
+        <span class="embed__play" aria-hidden="true"></span>
+        <span class="embed__label">{{ title() }}</span>
+      </button>
+    }
+  </div>
+} @else {
+  <p class="embed__error" role="alert">Video no disponible.</p>
+}

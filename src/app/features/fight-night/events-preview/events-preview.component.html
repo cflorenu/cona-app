@@ -1,0 +1,59 @@
+<div class="fight-night" [attr.data-theme]="theme()">
+  <p class="demo-banner" role="note">Vista previa con datos de demostración · no visible en producción</p>
+
+  <header class="event-hero">
+    <div class="container">
+      <button type="button" class="theme-toggle" (click)="toggleTheme()"
+        [attr.aria-label]="'Cambiar a modo ' + (nextTheme() === 'light' ? 'claro' : 'oscuro')">
+        {{ nextTheme() === 'light' ? '☀ Modo claro' : '☾ Modo oscuro' }}
+      </button>
+      <p class="event-hero__kicker">{{ isStarted() ? 'En vivo' : 'Próximo evento' }}</p>
+      <h1 class="event-hero__title">{{ event.name }}</h1>
+      <p class="event-hero__meta">
+        <time [attr.datetime]="event.startDate">{{ formattedDate }}</time> · {{ event.venue.name }}, {{ event.venue.city }}
+      </p>
+      <app-event-countdown [target]="event.startDate" (started)="onStarted()" />
+      @if (event.tickets) {
+        <a class="event-hero__cta" [href]="event.tickets.url" target="_blank" rel="noopener noreferrer">Comprar entradas</a>
+      }
+    </div>
+  </header>
+
+  <section class="container section section--offscreen" aria-labelledby="card-title">
+    <h2 id="card-title" class="section__title">Cartelera</h2>
+    <div class="card-grid">
+      @for (match of card; track match.id) {
+        <app-match-card [match]="match" [prediction]="predictions()[match.id]" [userPick]="picks()[match.id] ?? null"
+          (predict)="vote(match.id, $event)" />
+      }
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="watch-title">
+    <h2 id="watch-title" class="section__title">Cómo verlo</h2>
+    <div class="watch-grid">
+      <!-- Reproductor y feed solo se cargan al acercarse al viewport; hls.js, además, solo al pulsar play. -->
+      @defer (on viewport) {
+        <app-hls-player [src]="stream.url" [title]="stream.title" [poster]="stream.poster" />
+      } @placeholder {
+        <div class="watch-placeholder"></div>
+      }
+      @if (liveFeedUrl) {
+        @defer (on viewport) {
+          <app-live-ticker [url]="liveFeedUrl" />
+        } @placeholder {
+          <div class="watch-placeholder"></div>
+        }
+      }
+    </div>
+  </section>
+
+  <section class="container section section--offscreen" aria-labelledby="roster-title">
+    <h2 id="roster-title" class="section__title">Roster</h2>
+    <div class="roster-grid">
+      @for (fighter of fighters; track fighter.id) {
+        <app-fighter-profile-card [fighter]="fighter" />
+      }
+    </div>
+  </section>
+</div>

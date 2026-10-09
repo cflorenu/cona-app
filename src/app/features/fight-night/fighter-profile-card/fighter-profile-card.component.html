@@ -1,0 +1,61 @@
+@let f = fighter();
+<article class="profile" [attr.aria-labelledby]="'fighter-' + f.id">
+  <div class="profile__media">
+    <img [ngSrc]="f.image.src" fill sizes="(min-width: 1200px) 25vw, (min-width: 576px) 50vw, 100vw"
+      [alt]="f.image.alt" [priority]="priority()" class="profile__photo">
+    @if (f.alignment) {
+      <span class="profile__alignment profile__alignment--{{ f.alignment }}">{{ alignmentLabels[f.alignment] }}</span>
+    }
+  </div>
+
+  <div class="profile__content">
+    <p class="profile__discipline">{{ f.discipline }} · {{ f.country }}</p>
+    <h3 class="profile__name" [id]="'fighter-' + f.id">{{ f.name }}</h3>
+    @if (f.nickname) {
+      <p class="profile__nick">"{{ f.nickname }}"</p>
+    }
+
+    <dl class="profile__record" aria-label="Récord">
+      <div><dt>V</dt><dd>{{ f.record.wins }}</dd></div>
+      <div><dt>D</dt><dd>{{ f.record.losses }}</dd></div>
+      <div><dt>E</dt><dd>{{ f.record.draws }}</dd></div>
+    </dl>
+    <p class="visually-hidden">Récord: {{ record() }}</p>
+
+    <dl class="profile__stats">
+      @for (stat of physicalStats(); track stat.label) {
+        <div><dt>{{ stat.label }}</dt><dd>{{ stat.value }}</dd></div>
+      }
+    </dl>
+
+    @if (winBreakdown().length) {
+      <section class="profile__section" aria-label="Victorias por método">
+        <h4 class="profile__heading">Victorias por método</h4>
+        @for (item of winBreakdown(); track item.key) {
+          <div class="method">
+            <span class="method__label">{{ item.label }}</span>
+            <span class="method__track" aria-hidden="true">
+              <span class="method__fill" [style.width.%]="item.percent"></span>
+            </span>
+            <span class="method__value">{{ item.count }} ({{ item.percent }}%)</span>
+          </div>
+        }
+      </section>
+    }
+
+    @if (f.signatureMoves.length) {
+      <section class="profile__section" aria-label="Movimientos signature">
+        <h4 class="profile__heading">Signature</h4>
+        <ul class="moves">
+          @for (move of f.signatureMoves; track move) {
+            <li>{{ move }}</li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (f.profileUrl) {
+      <a class="profile__cta" [routerLink]="f.profileUrl">Ver perfil completo</a>
+    }
+  </div>
+</article>

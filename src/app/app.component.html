@@ -1,4 +1,17 @@
-<app-navbar *ngIf="!isLoginPage && !isLAdminPage"></app-navbar>
-<router-outlet></router-outlet>
-<app-from *ngIf="!isLoginPage && !isLAdminPage && !isContacFormPage"></app-from>
-<app-footer *ngIf="!isLoginPage && !isLAdminPage"></app-footer>
+<a class="skip-link" href="#contenido" (click)="skipToContent($event)">Saltar al contenido</a>
+<app-navbar />
+<main #main id="contenido" tabindex="-1">
+  <router-outlet />
+</main>
+<!-- Formularios fuera del bundle inicial (@angular/forms se descarga cuando el navegador está libre). -->
+<div id="contacto" class="contact-slot">
+  @defer (on idle) {
+    <app-contact-form />
+  } @placeholder {
+    <div class="contact-slot__placeholder"></div>
+  }
+</div>
+<app-footer />
+@defer (when isSubscribeOpen(); prefetch on idle) {
+  <app-subscribe-modal />
+}

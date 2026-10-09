@@ -1,0 +1,83 @@
+<section class="bowl" aria-labelledby="contact-form-title">
+  <h2 id="contact-form-title" class="text-center">
+    Escríbenos y <span class="text-warning me-2">agenda</span>
+    <span class="text-purple">una sesión</span>!
+  </h2>
+  <form class="contact-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" formControlName="nombre_completo" class="form-control"
+          placeholder="Ingresa tu nombre" autocomplete="name" maxlength="100"
+          [class.is-invalid]="isInvalid('nombre_completo')" aria-describedby="name-error">
+        @if (isInvalid('nombre_completo')) {
+          <div id="name-error" class="invalid-feedback">Ingresa tu nombre.</div>
+        }
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="_replyto" class="form-control"
+          placeholder="Ingresa tu email" autocomplete="email" maxlength="254"
+          [class.is-invalid]="isInvalid('_replyto')" aria-describedby="email-error">
+        @if (isInvalid('_replyto')) {
+          <div id="email-error" class="invalid-feedback">Ingresa un email válido.</div>
+        }
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="phone">Teléfono</label>
+        <input type="tel" id="phone" formControlName="telefono" class="form-control"
+          placeholder="Ingresa tu teléfono" autocomplete="tel" maxlength="15"
+          [class.is-invalid]="isInvalid('telefono')" aria-describedby="phone-error">
+        @if (isInvalid('telefono')) {
+          <div id="phone-error" class="invalid-feedback">Ingresa un teléfono válido (solo números).</div>
+        }
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="country-code">Código de país</label>
+        <input type="text" id="country-code" class="form-control" [value]="countryCode" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <label for="message">Mensaje</label>
+        <textarea id="message" formControlName="mensaje" class="form-control" rows="3"
+          placeholder="Ingresa tu duda aquí." maxlength="2000"
+          [class.is-invalid]="isInvalid('mensaje')" aria-describedby="message-error"></textarea>
+        @if (isInvalid('mensaje')) {
+          <div id="message-error" class="invalid-feedback">Escribe tu mensaje.</div>
+        }
+      </div>
+    </div>
+
+    <!-- Honeypot anti-spam: invisible para usuarios reales -->
+    <div class="d-none" aria-hidden="true">
+      <label for="gotcha">No completar este campo</label>
+      <input type="text" id="gotcha" formControlName="_gotcha" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-warning" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Enviando...' : 'Enviar' }}
+      </button>
+    </div>
+
+    <div aria-live="polite">
+      @switch (status()) {
+        @case ('success') {
+          <div class="alert alert-success mt-3">
+            ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.
+          </div>
+        }
+        @case ('error') {
+          <div class="alert alert-danger mt-3" role="alert">
+            Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo.
+          </div>
+        }
+      }
+    </div>
+  </form>
+</section>

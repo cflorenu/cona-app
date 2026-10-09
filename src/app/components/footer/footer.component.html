@@ -1,52 +1,88 @@
-<footer class="footer">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-3 text-center text-md-left">
-        <img src="assets/cona_logo.png" alt="Logo" class="logo">
-      </div>
+<footer class="site-footer">
+  <div class="footer-main">
+    <section class="contact" aria-labelledby="footer-contact-title">
+      <h2 id="footer-contact-title" class="footer-heading">Contáctanos</h2>
+      <address class="contact__address">
+        <app-icon name="geo-alt" />
+        <span>Av. César Vallejo con Av. Revolución<br>Villa El Salvador 15834<br>Lima, Perú</span>
+      </address>
+      <ul class="contact__list">
+        <li><a href="tel:+51946893354"><app-icon name="telephone" /> +51 946 893 354</a></li>
+        <li><a href="mailto:pasonu60&#64;gmail.com"><app-icon name="envelope" /> pasonu60&#64;gmail.com</a></li>
+      </ul>
+      <p class="contact__links">
+        <a [routerLink]="[]" fragment="contacto">Escríbenos</a>
+        <span aria-hidden="true">·</span>
+        <a [href]="mapsUrl" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+      </p>
 
-      <div class="col-md-5 text-light text-center text-md-left">
-        <p><strong>Teléfono:</strong> +51 946893354</p>
-        <p><strong>Correo:</strong> pasonu60&#64;gmail.com</p>
-        <p><strong>Dirección:</strong> Av. Cesar Vallejo, Av. Revolución, Villa el Salvador 15834, Perú</p>
-        <div class="social-icons">
-          <a href="https://www.tiktok.com/@paulsobrado?lang=es" target="_blank"><i class="bi bi-tiktok"></i></a>
-          <a href="https://www.instagram.com/paul_sobrado/" target="_blank"><i class="bi bi-instagram"></i></a>
-          <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGKnSkQZgCCJkMLdTHvtNWFzsBDJCGTBspcBjrnVwLZsbTsvgTMtRbJSlMFwHwXSXGvFCQh"
-            target="_blank"><i class="bi bi-envelope"></i></a>
-          <a href="https://www.facebook.com/paulsobradonunta/" target="_blank"><i class="bi bi-facebook"></i></a>
-          <a href="https://www.linkedin.com/in/paul-antonio-sobrado-nunta-1771bb38/" target="_blank"><i
-              class="bi bi-linkedin"></i></a>
+      <h2 id="newsletter-title" class="footer-heading footer-heading--newsletter">Newsletter</h2>
+      <form class="newsletter" (submit)="subscribe($event, emailInput, gotchaInput)" novalidate
+        aria-labelledby="newsletter-title">
+        <label for="newsletter-email" class="visually-hidden">Correo electrónico</label>
+        <input #emailInput id="newsletter-email" class="newsletter__input" type="email" required maxlength="254"
+          autocomplete="email" placeholder="Ingresa tu correo electrónico"
+          [attr.aria-invalid]="newsletterStatus() === 'invalid'" aria-describedby="newsletter-status newsletter-help">
+        <div class="d-none" aria-hidden="true">
+          <label for="newsletter-gotcha">No completar este campo</label>
+          <input #gotchaInput id="newsletter-gotcha" type="text" tabindex="-1" autocomplete="off">
         </div>
-      </div>
+        <button type="submit" class="newsletter__submit" [disabled]="newsletterStatus() === 'submitting'"
+          aria-label="Suscribirme al newsletter">
+          <app-icon name="arrow-right" />
+        </button>
+      </form>
+      <p id="newsletter-status" class="newsletter__status" aria-live="polite">
+        @switch (newsletterStatus()) {
+          @case ('invalid') { Ingresa un correo electrónico válido. }
+          @case ('submitting') { Enviando… }
+          @case ('success') { ¡Listo! Te avisaremos de eventos, horarios y novedades. }
+          @case ('error') { No pudimos registrarte. Inténtalo de nuevo en unos minutos. }
+        }
+      </p>
+      <p id="newsletter-help" class="newsletter__help">
+        *Al suscribirte aceptas recibir nuestros correos. Puedes darte de baja cuando quieras.
+      </p>
+    </section>
 
-      <div class="col-md-4 text-center">
-        <p class="text-dark"><strong>¿Tienes dudas?</strong> Contáctanos Ahora</p>
-        <button class="btn-contact">Contáctanos aquí</button>
-        <div class="map-container">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3899.5141593997064!2d-76.93652919821986!3d-12.21342614632418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b95f206a49cd%3A0x7d388de7886acd1c!2sCON%20Atletas!5e0!3m2!1ses-419!2spe!4v1741966644361!5m2!1ses-419!2spe"
-            width="300" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <nav class="footer-links" aria-label="Mapa del sitio">
+      @for (column of columns; track column.title) {
+        <div class="footer-col">
+          <h2 class="footer-col__title">{{ column.title }}</h2>
+          <ul>
+            @for (link of column.links; track link.label) {
+              <li><a [routerLink]="link.path" [fragment]="link.fragment">{{ link.label }}</a></li>
+            }
+            @if (column.title === 'Alumnos') {
+              <li><button type="button" class="footer-col__action" (click)="openFreeClass()">Clase gratis</button></li>
+              <li><a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">Consultas por WhatsApp</a></li>
+            }
+          </ul>
         </div>
-      </div>
-    </div>
+      }
+    </nav>
   </div>
 
-  <div class="footer-bottom py-3">
-    <div class="container text-center">
-      <p class="mb-0 text-white">
-        &copy; {{ currentYear }} Todos los derechos reservados. <a
-          href="https://api.whatsapp.com/send?phone=51935491546" target="_blank"
-          class="text-white text-decoration-none fw-bold">CON-ATLETAS</a>. & <a
-          href="https://api.whatsapp.com/send?phone=51913428678&text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20los%20sus%20paginas%20la%20web%20Flowired%20¡Gracias!"
-          target="_blank" class="text-white text-decoration-none fw-bold">Flowired</a>.
-      </p>
-    </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom__copy">&copy; {{ currentYear }} Con Atletas Sur. Todos los derechos reservados.</p>
+    <p class="footer-bottom__credit">
+      Desarrollado por
+      <a href="https://api.whatsapp.com/send?phone=51913428678&text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20los%20sus%20paginas%20la%20web%20Flowired%20¡Gracias!"
+        target="_blank" rel="noopener noreferrer">Flowired</a>
+    </p>
+    <ul class="socials" aria-label="Redes sociales">
+      @for (social of socials; track social.label) {
+        <li>
+          <a class="socials__link" [href]="social.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label">
+            <app-icon [name]="social.icon" />
+          </a>
+        </li>
+      }
+    </ul>
   </div>
 
   <a href="https://api.whatsapp.com/send?phone=51946893354&text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20los%20entrenamientos%20en%20la%20academia%20CONA.%20Estoy%20interesado%20en%20conocer%20los%20horarios,%20precios%20y%20modalidades%20de%20entrenamiento.%20¿Podrían%20brindarme%20más%20detalles?%20¡Gracias!"
-    class="whatsapp-float" target="_blank">
-    <i class="bi bi-whatsapp"></i>
+    class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    <app-icon name="whatsapp" />
   </a>
 </footer>

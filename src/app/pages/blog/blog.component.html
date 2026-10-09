@@ -1,7 +1,7 @@
 <div>
   <div class="container-fluid p-0">
     <div class="hero-section position-relative text-center text-white">
-      <img src="../assets/paul.jpg" class="img-fluid hero-img" alt="Noticias">
+      <img ngSrc="assets/paul.jpg" fill priority sizes="100vw" class="hero-img" alt="Noticias">
       <div class="overlay"></div>
       <div class="hero-text">
         <h1 class="fw-bold text-warning">Novedades y noticias</h1>
@@ -12,31 +12,36 @@
 
   <div class="container py-5">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      <div class="col" *ngFor="let noticia of noticias">
-        <div class="card h-100 shadow-sm">
-          <img [src]="noticia.imagen" class="card-img-top" alt="{{ noticia.titulo }}">
-          <div class="card-body">
-            <h5 class="card-title fw-bold text-warning">{{ noticia.titulo }}</h5>
-            <p class="card-text text-purple">{{ noticia.descripcion }}</p>
+      @for (noticia of noticias; track noticia.titulo) {
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-media">
+              <img [ngSrc]="noticia.imagen" fill sizes="(min-width: 992px) 33vw, (min-width: 768px) 50vw, 100vw"
+                class="card-img-top" [alt]="noticia.titulo">
+            </div>
+            <div class="card-body">
+              <h2 class="h5 card-title fw-bold text-warning">{{ noticia.titulo }}</h2>
+              <p class="card-text text-purple">{{ noticia.descripcion }}</p>
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 
-<div class="hero position-relative text-white">
-  <video autoplay muted="true" loop>
-    <source src="assets/paul_sobrado.mkv" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
+  <div class="hero position-relative text-white">
+    <video appPlayWhenVisible loop playsinline [muted]="true" preload="none" poster="assets/video/paul-sobrado-poster.webp">
+      <source src="assets/video/paul-sobrado-720.webm" type="video/webm">
+      <source src="assets/video/paul-sobrado-720.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
 
-  <div class="position-absolute top-50 start-50 translate-middle text-center">
-    <h1 class="fw-bold">
-      <span class="text-white me-2">Con</span>
-      <span class="text-warning me-2">Atletas</span>
-      <span class="text-purple">Sur</span>
-    </h1>
-
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+      <p class="h1 fw-bold">
+        <span class="text-white me-2">Con</span>
+        <span class="text-warning me-2">Atletas</span>
+        <span class="text-purple">Sur</span>
+      </p>
+    </div>
   </div>
-</div>
 </div>

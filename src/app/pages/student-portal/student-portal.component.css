@@ -1,0 +1,21 @@
+.portal-hero {
+  background: linear-gradient(135deg, #4b0082, #6f42c1);
+}
+
+.text-purple {
+  color: #6f42c1;
+}
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-media {
+  position: relative;
+  height: 180px;
+}
+
+.card-media img {
+  object-fit: cover;
+}

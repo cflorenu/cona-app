@@ -1,36 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold" routerLink="/"> <span class="text-warning me-2">CON</span> <span
-        class="text-purple">ATLETAS</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<header class="site-header">
+  <nav class="nav" aria-label="Navegación principal">
+    <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="Con Atletas Sur, ir al inicio">
+      <img ngSrc="assets/cona_logo.png" width="44" height="44" loading="eager" alt="" class="brand__logo">
+      <span class="brand__name" aria-hidden="true"><span class="brand__con">Con</span> Atletas</span>
+    </a>
+
+    <button type="button" class="burger" (click)="toggleMenu()" aria-controls="menu-principal"
+      [attr.aria-expanded]="isMenuOpen()" aria-label="Abrir o cerrar el menú">
+      <span></span><span></span><span></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/clase-privada" routerLinkActive="active">Clase Privada</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/biography" routerLinkActive="active">Biografia</a>
-        </li>
+
+    <div id="menu-principal" class="menu" [class.menu--open]="isMenuOpen()">
+      <ul class="menu__links">
+        @for (link of links; track link.path) {
+          <li>
+            <a class="menu__link" [routerLink]="link.path" [appPrefetch]="link.path" routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{ exact: link.exact ?? false }" ariaCurrentWhenActive="page"
+              (click)="closeMenu()">{{ link.label }}</a>
+          </li>
+        }
       </ul>
-      <div class="d-flex">
-        <a class="btn btn-warning text-dark me-2"
-          href="https://wa.me/51946893354?text=Hola%20vengo%20desde%20la%20pagina%20web,%20y%20quisiera%20tener%20una%20clase%20gratis%20para%20el%20club%20Cona."
-          target="_blank">
-          Clase Gratis
+
+      <div class="menu__actions">
+        <a class="pill pill--secondary" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">
+          <app-icon name="whatsapp" /> Escríbenos
         </a>
-        <!-- Secciones de hitos
-<a class="btn btn-purple text-white" routerLink="/login">Iniciar sesión</a>-->
+        <button type="button" class="pill pill--primary" (click)="openFreeClass()">Clase gratis</button>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

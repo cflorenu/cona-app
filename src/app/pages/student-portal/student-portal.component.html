@@ -1,1 +1,63 @@
-<p>student-portal works!</p>
+<section class="portal-hero text-center text-white py-5">
+  <div class="container py-4">
+    <h1 class="fw-bold">
+      <span class="text-warning me-2">Portal</span> <span class="text-white">del alumno</span>
+    </h1>
+    <p class="lead mb-0">Horarios, disciplinas y contacto directo con la academia en un solo lugar.</p>
+  </div>
+</section>
+
+<section id="horario" class="container py-5" aria-labelledby="schedule-title">
+  <div class="row align-items-center g-4">
+    <div class="col-md-6">
+      <h2 id="schedule-title" class="fw-bold">
+        <span class="text-warning me-2">Horario</span><span class="text-purple">de clases</span>
+      </h2>
+      <p class="text-muted">
+        Revisa los turnos de cada disciplina y organiza tu semana de entrenamiento.
+        Si tienes dudas sobre qué horario te conviene, escríbenos y te orientamos.
+      </p>
+    </div>
+    <div class="col-md-6 text-center">
+      <img ngSrc="assets/horario.png" width="394" height="577" class="img-fluid h-auto rounded-3 shadow"
+        alt="Horario de clases de la academia">
+    </div>
+  </div>
+</section>
+
+<section class="bg-light py-5" aria-labelledby="disciplines-title">
+  <div class="container">
+    <h2 id="disciplines-title" class="text-center fw-bold mb-4">
+      <span class="text-warning me-2">Nuestras</span><span class="text-purple">disciplinas</span>
+    </h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      @for (discipline of disciplines; track discipline.name) {
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-media">
+              <img [ngSrc]="discipline.image" fill sizes="(min-width: 992px) 25vw, (min-width: 576px) 50vw, 100vw"
+                class="card-img-top" [alt]="'Clase de ' + discipline.name">
+            </div>
+            <div class="card-body text-center">
+              <h3 class="h5 card-title fw-bold mb-0">{{ discipline.name }}</h3>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="container py-5 text-center" aria-labelledby="help-title">
+  <h2 id="help-title" class="fw-bold mb-2">¿Necesitas ayuda?</h2>
+  <p class="text-muted mb-4">Elige cómo quieres comunicarte con nosotros.</p>
+  <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+    <button type="button" class="btn btn-warning btn-lg" (click)="openFreeClass()">Agenda una clase gratis</button>
+    <a class="btn btn-success btn-lg" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">
+      <app-icon name="whatsapp" /> Escríbenos por WhatsApp
+    </a>
+    <a class="btn btn-outline-dark btn-lg" [routerLink]="[]" fragment="contacto">
+      <app-icon name="envelope" /> Envíanos un mensaje
+    </a>
+  </div>
+</section>

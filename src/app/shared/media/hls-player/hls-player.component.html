@@ -1,0 +1,21 @@
+<div class="player">
+  <video #video class="player__video" [attr.poster]="poster() ?? null" [controls]="state() === 'playing'"
+    playsinline preload="none" [attr.aria-label]="title()"></video>
+
+  @switch (state()) {
+    @case ('idle') {
+      <button type="button" class="player__start" (click)="play()" [attr.aria-label]="'Ver en vivo: ' + title()">
+        <span class="player__play" aria-hidden="true"></span>
+        <span class="player__label">{{ title() }}</span>
+      </button>
+    }
+    @case ('loading') {
+      <p class="player__status" role="status">Conectando con la transmisión…</p>
+    }
+    @case ('error') {
+      <p class="player__status player__status--error" role="alert">
+        No se pudo cargar la transmisión. Inténtalo de nuevo más tarde.
+      </p>
+    }
+  }
+</div>

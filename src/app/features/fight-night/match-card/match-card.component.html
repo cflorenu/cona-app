@@ -1,0 +1,63 @@
+@let m = match();
+<article class="match" [class.match--main]="m.isMainEvent" [attr.aria-labelledby]="'match-' + m.id">
+  <header class="match__meta">
+    <div class="match__badges">
+      @if (m.isMainEvent) {
+        <span class="badge badge--main">Main event</span>
+      }
+      @if (m.isTitleFight) {
+        <span class="badge badge--title">Pelea por el título</span>
+      }
+      @if (m.status === 'live') {
+        <span class="badge badge--live"><span class="live-dot" aria-hidden="true"></span>En vivo</span>
+      }
+    </div>
+    <span class="match__division">{{ m.weightClass }} · {{ m.rounds }} {{ m.rounds === 1 ? 'round' : 'rounds' }}</span>
+  </header>
+
+  <h3 class="visually-hidden" [id]="'match-' + m.id">{{ m.red.name }} contra {{ m.blue.name }}</h3>
+
+  <div class="match__body">
+    @for (corner of corners; track corner) {
+      @let f = fighter(corner);
+      <div class="corner corner--{{ corner }}" [class.is-winner]="outcome(corner) === 'winner'"
+        [class.is-loser]="outcome(corner) === 'loser'">
+        <div class="corner__frame">
+          <img [ngSrc]="f.image.src" fill sizes="(min-width: 992px) 12vw, 30vw" [alt]="f.image.alt">
+        </div>
+        <p class="corner__name">{{ f.name }}</p>
+        @if (f.nickname) {
+          <p class="corner__nick">"{{ f.nickname }}"</p>
+        }
+        <p class="corner__record" [attr.aria-label]="'Récord ' + formatRecord(f.record)">{{ formatRecord(f.record) }}</p>
+        @if (outcome(corner) === 'winner') {
+          <span class="corner__win">Ganador</span>
+        }
+      </div>
+      @if ($first) {
+        <span class="match__vs" aria-hidden="true">VS</span>
+      }
+    }
+  </div>
+
+  @if (resultLabel(); as label) {
+    <p class="match__result">{{ label }}</p>
+  }
+
+  @if (percentages(); as pct) {
+    <section class="predict" aria-label="Predicción del público">
+      <div class="predict__bar" aria-hidden="true">
+        <span class="predict__fill predict__fill--red" [style.width.%]="pct.red"></span>
+        <span class="predict__fill predict__fill--blue" [style.width.%]="pct.blue"></span>
+      </div>
+      <div class="predict__actions">
+        @for (corner of corners; track corner) {
+          <button type="button" class="predict__btn predict__btn--{{ corner }}" [disabled]="!canPredict()"
+            [attr.aria-pressed]="userPick() === corner" (click)="vote(corner)">
+            {{ fighter(corner).name }} · {{ pct[corner] }}%
+          </button>
+        }
+      </div>
+    </section>
+  }
+</article>

@@ -1,0 +1,97 @@
+@if (isOpen()) {
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true"
+    aria-labelledby="subscribeModalLabel" (click)="onBackdropClick($event)" (keydown.escape)="close()">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="subscribeModalLabel">
+            Agenda tu <span class="text-purple">clase gratis</span>
+          </h2>
+          <button type="button" class="btn-close" (click)="close()" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          @if (status() === 'success') {
+            <div class="text-center py-3" aria-live="polite">
+              <p class="fs-5 fw-bold mb-2">¡Solicitud enviada!</p>
+              <p class="mb-4">Te contactaremos pronto para coordinar tu clase gratis.</p>
+              <button type="button" class="btn btn-warning" (click)="close()">Cerrar</button>
+            </div>
+          } @else {
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+              <div class="mb-3">
+                <label for="subscribe-name" class="form-label">Nombre completo</label>
+                <input #nameInput type="text" id="subscribe-name" class="form-control" formControlName="nombre"
+                  autocomplete="name" maxlength="100" [class.is-invalid]="isInvalid('nombre')"
+                  aria-describedby="subscribe-name-error">
+                @if (isInvalid('nombre')) {
+                  <div id="subscribe-name-error" class="invalid-feedback">Ingresa tu nombre.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="subscribe-phone" class="form-label">Celular</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text">{{ countryCode }}</span>
+                  <input type="tel" id="subscribe-phone" class="form-control" formControlName="telefono"
+                    autocomplete="tel-national" inputmode="numeric" maxlength="9" placeholder="9XXXXXXXX"
+                    [class.is-invalid]="isInvalid('telefono')" aria-describedby="subscribe-phone-error">
+                  @if (isInvalid('telefono')) {
+                    <div id="subscribe-phone-error" class="invalid-feedback">
+                      Ingresa un celular de 9 dígitos que empiece con 9.
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="subscribe-email" class="form-label">Correo</label>
+                <input type="email" id="subscribe-email" class="form-control" formControlName="_replyto"
+                  autocomplete="email" maxlength="254" [class.is-invalid]="isInvalid('_replyto')"
+                  aria-describedby="subscribe-email-error">
+                @if (isInvalid('_replyto')) {
+                  <div id="subscribe-email-error" class="invalid-feedback">Ingresa un correo válido.</div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="subscribe-discipline" class="form-label">Disciplina de interés</label>
+                <select id="subscribe-discipline" class="form-select" formControlName="disciplina"
+                  [class.is-invalid]="isInvalid('disciplina')" aria-describedby="subscribe-discipline-error">
+                  <option value="" disabled>Elige una disciplina</option>
+                  @for (discipline of disciplines; track discipline) {
+                    <option [value]="discipline">{{ discipline }}</option>
+                  }
+                </select>
+                @if (isInvalid('disciplina')) {
+                  <div id="subscribe-discipline-error" class="invalid-feedback">Elige una disciplina.</div>
+                }
+              </div>
+
+              <!-- Honeypot anti-spam: invisible para usuarios reales -->
+              <div class="d-none" aria-hidden="true">
+                <label for="subscribe-gotcha">No completar este campo</label>
+                <input type="text" id="subscribe-gotcha" formControlName="_gotcha" tabindex="-1" autocomplete="off">
+              </div>
+
+              @if (status() === 'error') {
+                <div class="alert alert-danger" role="alert">
+                  No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos por WhatsApp.
+                </div>
+              }
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-warning" [disabled]="isSubmitting()">
+                  {{ isSubmitting() ? 'Enviando...' : 'Quiero mi clase gratis' }}
+                </button>
+                <a class="btn btn-outline-success" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">
+                  Prefiero escribir por WhatsApp
+                </a>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

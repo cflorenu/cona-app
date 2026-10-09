@@ -1,0 +1,26 @@
+@if (feed(); as f) {
+  <section class="ticker" aria-labelledby="ticker-title">
+    <header class="ticker__header">
+      <h3 id="ticker-title" class="ticker__title">Play-by-play</h3>
+      <span class="ticker__status ticker__status--{{ f.status() }}">
+        @if (f.status() === 'open') {
+          <span class="live-dot" aria-hidden="true"></span>
+        }
+        {{ statusLabels[f.status()] }}
+      </span>
+    </header>
+
+    <ol class="ticker__list" role="log" aria-live="polite" aria-relevant="additions">
+      @for (update of f.updates(); track update.id) {
+        <li class="ticker__item ticker__item--{{ update.kind }}">
+          @if (update.round) {
+            <span class="ticker__time">R{{ update.round }}@if (update.time) { · {{ update.time }}}</span>
+          }
+          <span class="ticker__text">{{ update.text }}</span>
+        </li>
+      } @empty {
+        <li class="ticker__empty">Esperando el inicio del combate…</li>
+      }
+    </ol>
+  </section>
+}

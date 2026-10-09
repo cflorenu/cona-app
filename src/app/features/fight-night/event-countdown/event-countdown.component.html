@@ -1,0 +1,15 @@
+@if (isLive()) {
+  <p class="countdown countdown--live"><span class="live-dot" aria-hidden="true"></span>En vivo ahora</p>
+} @else {
+  @let p = parts();
+  <!-- role="timer" con aria-live="off": no anunciar cada segundo a lectores de pantalla -->
+  <div class="countdown" role="timer" aria-live="off"
+    [attr.aria-label]="'Faltan ' + p.days + ' días, ' + p.hours + ' horas y ' + p.minutes + ' minutos'">
+    @for (unit of units; track unit.key) {
+      <div class="countdown__unit">
+        <span class="countdown__value">{{ p[unit.key] < 10 ? '0' + p[unit.key] : p[unit.key] }}</span>
+        <span class="countdown__label">{{ unit.label }}</span>
+      </div>
+    }
+  </div>
+}
