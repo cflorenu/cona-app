@@ -5,12 +5,14 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "node scripts/generate-seo-files.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage",
     "lint": "ng lint",
     "images": "node scripts/optimize-images.mjs",
-    "mock:live": "node tools/mock-live-server.mjs"
+    "mock:live": "node tools/mock-live-server.mjs",
+    "og-image": "node scripts/generate-og-image.mjs"
   },
   "private": true,
   "dependencies": {

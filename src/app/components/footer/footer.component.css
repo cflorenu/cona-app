@@ -35,7 +35,6 @@
   gap: 0.6rem;
   margin-bottom: 1rem;
   font-style: normal;
-  line-height: 1.6;
 }
 
 .contact__address app-icon,
@@ -177,7 +176,6 @@
   color: var(--text-muted);
   font: inherit;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
 .footer-col a:hover,
