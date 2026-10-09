@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
+import { AnalyticsService } from '../../shared/analytics/analytics.service';
 import { ModalService } from '../../services/modal.service';
 import { DISCIPLINES } from '../../shared/data/disciplines';
 import { FOOTER_COLUMNS, FooterComponent, MAPS_DIRECTIONS_URL, SOCIAL_LINKS } from './footer.component';
@@ -112,7 +113,8 @@ describe('FooterComponent', () => {
       expect(component.newsletterStatus()).toBe('invalid');
     });
 
-    it('con un correo válido debe suscribir, confirmar y limpiar el campo', () => {
+    it('con un correo válido debe suscribir, confirmar, registrar la conversión y limpiar el campo', () => {
+      const track = spyOn(TestBed.inject(AnalyticsService), 'track');
       submit('  ana@example.com ');
       expect(contactService.subscribeNewsletter).toHaveBeenCalledOnceWith({ email: 'ana@example.com', _gotcha: '' });
       expect(element.querySelector<HTMLButtonElement>('.newsletter__submit')!.disabled).toBeTrue();
@@ -122,6 +124,7 @@ describe('FooterComponent', () => {
       fixture.detectChanges();
 
       expect(text('#newsletter-status')).toContain('¡Listo!');
+      expect(track).toHaveBeenCalledOnceWith('Newsletter');
       expect(email().value).toBe('');
     });
 

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
+import { TrackDirective } from '../../shared/analytics/analytics.service';
 import { FREE_CLASS_WHATSAPP_URL } from '../../shared/data/contact-info';
 import { IconComponent } from '../../shared/icon/icon.component';
 import { OPTIMIZED_IMAGE } from '../../shared/images/explicit-sizes.directive';
@@ -22,7 +23,7 @@ export const NAV_LINKS: readonly NavLink[] = [
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, PrefetchDirective, IconComponent, OPTIMIZED_IMAGE],
+  imports: [RouterLink, RouterLinkActive, PrefetchDirective, IconComponent, OPTIMIZED_IMAGE, TrackDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

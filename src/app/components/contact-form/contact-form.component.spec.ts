@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
+import { AnalyticsService } from '../../shared/analytics/analytics.service';
 import { ContactFormComponent, DEFAULT_COUNTRY_CODE, PHONE_PATTERN } from './contact-form.component';
 
 describe('ContactFormComponent', () => {
@@ -172,14 +173,17 @@ describe('ContactFormComponent', () => {
     });
 
     it('al responder con éxito debe mostrar el mensaje de éxito y resetear el formulario', () => {
+      const track = spyOn(TestBed.inject(AnalyticsService), 'track');
       fillValidForm();
       component.submit();
+      expect(track).not.toHaveBeenCalled();
 
       response$.next();
       response$.complete();
       fixture.detectChanges();
 
       expect(component.status()).toBe('success');
+      expect(track).toHaveBeenCalledOnceWith('Contacto');
       expect(component.form.getRawValue()).toEqual({
         nombre_completo: '',
         _replyto: '',

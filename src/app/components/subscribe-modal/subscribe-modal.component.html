@@ -88,7 +88,8 @@
                 <button type="submit" class="btn btn-warning" [disabled]="isSubmitting()">
                   {{ isSubmitting() ? 'Enviando...' : 'Quiero mi clase gratis' }}
                 </button>
-                <a class="btn btn-outline-success" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-outline-success" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer"
+                  appTrack="WhatsApp" trackFrom="modal clase gratis">
                   Prefiero escribir por WhatsApp
                 </a>
               </div>

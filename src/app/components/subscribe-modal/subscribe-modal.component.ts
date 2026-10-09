@@ -15,6 +15,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { ContactService, SubmissionStatus } from '../../services/contact.service';
 import { ModalService } from '../../services/modal.service';
+import { AnalyticsService, TrackDirective } from '../../shared/analytics/analytics.service';
 import { FREE_CLASS_WHATSAPP_URL } from '../../shared/data/contact-info';
 import { DISCIPLINES } from '../../shared/data/disciplines';
 
@@ -24,7 +25,7 @@ export const PERU_MOBILE_PATTERN = /^9\d{8}$/;
 
 @Component({
   selector: 'app-subscribe-modal',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, TrackDirective],
   templateUrl: './subscribe-modal.component.html',
   styleUrl: './subscribe-modal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -33,6 +34,7 @@ export class SubscribeModalComponent {
   private readonly modalService = inject(ModalService);
   private readonly contactService = inject(ContactService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly analytics = inject(AnalyticsService);
   private readonly nameInput = viewChild<ElementRef<HTMLInputElement>>('nameInput');
 
   readonly countryCode = COUNTRY_CODE;
@@ -82,6 +84,7 @@ export class SubscribeModalComponent {
       .subscribe({
         next: () => {
           this.status.set('success');
+          this.analytics.track('Solicitud clase gratis', { disciplina: value.disciplina });
           this.form.reset();
         },
         error: () => this.status.set('error')

@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ContactService, SubmissionStatus } from '../../services/contact.service';
+import { AnalyticsService } from '../../shared/analytics/analytics.service';
 
 export const DEFAULT_COUNTRY_CODE = '+51';
 /** 7 a 15 caracteres: dígitos, espacios o guiones; debe empezar y terminar en dígito. */
@@ -18,6 +19,7 @@ export const PHONE_PATTERN = /^\d[\d\s-]{5,13}\d$/;
 export class ContactFormComponent {
   private readonly contactService = inject(ContactService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly analytics = inject(AnalyticsService);
 
   readonly countryCode = DEFAULT_COUNTRY_CODE;
   readonly status = signal<SubmissionStatus>('idle');
@@ -52,6 +54,7 @@ export class ContactFormComponent {
       .subscribe({
         next: () => {
           this.status.set('success');
+          this.analytics.track('Contacto');
           this.form.reset();
         },
         error: () => this.status.set('error')

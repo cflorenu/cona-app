@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { OPTIMIZED_IMAGE } from '../../shared/images/explicit-sizes.directive';
 import { RouterLink } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
+import { TrackDirective } from '../../shared/analytics/analytics.service';
 import { STUDENT_HELP_WHATSAPP_URL } from '../../shared/data/contact-info';
 import { DISCIPLINES } from '../../shared/data/disciplines';
 import { IconComponent } from '../../shared/icon/icon.component';
@@ -9,7 +10,7 @@ import { ScheduleComponent } from '../../shared/schedule/schedule.component';
 
 @Component({
   selector: 'app-student-portal',
-  imports: [OPTIMIZED_IMAGE, RouterLink, IconComponent, ScheduleComponent],
+  imports: [OPTIMIZED_IMAGE, RouterLink, IconComponent, ScheduleComponent, TrackDirective],
   templateUrl: './student-portal.component.html',
   styleUrl: './student-portal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

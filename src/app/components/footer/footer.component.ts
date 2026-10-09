@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { ContactService } from '../../services/contact.service';
 import { ModalService } from '../../services/modal.service';
+import { AnalyticsService, TrackDirective } from '../../shared/analytics/analytics.service';
 import { SECONDARY_WHATSAPP_NUMBER, STUDENT_HELP_WHATSAPP_URL, WHATSAPP_NUMBER } from '../../shared/data/contact-info';
 import { DISCIPLINES } from '../../shared/data/disciplines';
 import { IconComponent, IconName } from '../../shared/icon/icon.component';
@@ -61,7 +62,7 @@ export const MAPS_DIRECTIONS_URL = 'https://www.google.com/maps/dir/?api=1&desti
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, IconComponent],
+  imports: [RouterLink, IconComponent, TrackDirective],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -70,6 +71,7 @@ export class FooterComponent {
   private readonly contactService = inject(ContactService);
   private readonly modalService = inject(ModalService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly analytics = inject(AnalyticsService);
 
   readonly currentYear = new Date().getFullYear();
   readonly columns = FOOTER_COLUMNS;
@@ -98,6 +100,7 @@ export class FooterComponent {
       .subscribe({
         next: () => {
           this.newsletterStatus.set('success');
+          this.analytics.track('Newsletter');
           email.value = '';
         },
         error: () => this.newsletterStatus.set('error')

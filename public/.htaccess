@@ -78,6 +78,7 @@ AddType image/svg+xml .svg
   #  - connect-src formspree.io: envío del formulario de contacto.
   #  - frame-src youtube-nocookie / twitch e img-src i.ytimg.com: fachadas de video (iframe solo tras clic).
   #  - media-src/worker-src blob:: hls.js (MediaSource + Web Worker). Añadir a connect-src el origen del stream HLS.
+  #  - Analítica Plausible (environment.analytics.plausibleDomain): al activarla, añadir https://plausible.io a script-src y connect-src.
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com; font-src 'self'; media-src 'self' blob:; worker-src 'self' blob:; connect-src 'self' https://formspree.io; frame-src https://www.youtube-nocookie.com https://player.twitch.tv; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
 
   Header always set X-Content-Type-Options "nosniff"

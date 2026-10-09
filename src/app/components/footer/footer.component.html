@@ -9,7 +9,7 @@
       <ul class="contact__list">
         <li><a href="tel:+51946893354"><app-icon name="telephone" /> +51 946 893 354</a></li>
         <li>
-          <a [href]="secondaryWhatsappUrl" target="_blank" rel="noopener noreferrer">
+          <a [href]="secondaryWhatsappUrl" target="_blank" rel="noopener noreferrer" appTrack="WhatsApp" trackFrom="footer">
             <app-icon name="whatsapp" /> +51 935 491 546
           </a>
         </li>
@@ -60,8 +60,14 @@
               <li><a [routerLink]="link.path" [fragment]="link.fragment">{{ link.label }}</a></li>
             }
             @if (column.title === 'Alumnos') {
-              <li><button type="button" class="footer-col__action" (click)="openFreeClass()">Clase gratis</button></li>
-              <li><a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">Consultas por WhatsApp</a></li>
+              <li>
+                <button type="button" class="footer-col__action" (click)="openFreeClass()" appTrack="Clase gratis"
+                  trackFrom="footer">Clase gratis</button>
+              </li>
+              <li>
+                <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" appTrack="WhatsApp"
+                  trackFrom="footer">Consultas por WhatsApp</a>
+              </li>
             }
           </ul>
         </div>
@@ -89,7 +95,8 @@
   </div>
 
   <a href="https://api.whatsapp.com/send?phone=51946893354&text=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20los%20entrenamientos%20en%20la%20academia%20CONA.%20Estoy%20interesado%20en%20conocer%20los%20horarios,%20precios%20y%20modalidades%20de%20entrenamiento.%20¿Podrían%20brindarme%20más%20detalles?%20¡Gracias!"
-    class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">
+    class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp"
+    appTrack="WhatsApp" trackFrom="flotante">
     <app-icon name="whatsapp" />
   </a>
 </footer>

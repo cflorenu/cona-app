@@ -4,6 +4,10 @@ export const environment = {
   siteUrl: '',
   /** Endpoint SSE de resultados en vivo (vacío = desactivado). Dev: npm run mock:live */
   liveFeedUrl: 'http://localhost:3001/live',
+  /** Analítica sin cookies (Plausible). Vacío = desactivada. Ej.: 'conatletas.pe' */
+  analytics: {
+    plausibleDomain: ''
+  },
   features: {
     eventsPreview: true
   }

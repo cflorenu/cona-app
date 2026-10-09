@@ -22,10 +22,12 @@
       </ul>
 
       <div class="menu__actions">
-        <a class="pill pill--secondary" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">
+        <a class="pill pill--secondary" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" appTrack="WhatsApp"
+          trackFrom="header">
           <app-icon name="whatsapp" /> Escríbenos
         </a>
-        <button type="button" class="pill pill--primary" (click)="openFreeClass()">Clase gratis</button>
+        <button type="button" class="pill pill--primary" (click)="openFreeClass()" appTrack="Clase gratis"
+          trackFrom="header">Clase gratis</button>
       </div>
     </div>
   </nav>

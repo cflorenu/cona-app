@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
+import { AnalyticsService } from '../../shared/analytics/analytics.service';
 import { ModalService } from '../../services/modal.service';
 import { FREE_CLASS_WHATSAPP_URL } from '../../shared/data/contact-info';
 import { DISCIPLINES } from '../../shared/data/disciplines';
@@ -183,6 +184,7 @@ describe('SubscribeModalComponent', () => {
     });
 
     it('al tener éxito muestra la confirmación, resetea el formulario y vuelve al formulario al reabrir', () => {
+      const track = spyOn(TestBed.inject(AnalyticsService), 'track');
       component.form.setValue(validValues);
       component.onSubmit();
       response$.next();
@@ -190,6 +192,7 @@ describe('SubscribeModalComponent', () => {
 
       expect(element.querySelector('form')).toBeNull();
       expect(element.textContent).toContain('¡Solicitud enviada!');
+      expect(track).toHaveBeenCalledOnceWith('Solicitud clase gratis', { disciplina: 'Muay Thai' });
       expect(component.form.getRawValue().nombre).toBe('');
 
       element.querySelector<HTMLButtonElement>('.modal-body .btn-warning')!.click();
