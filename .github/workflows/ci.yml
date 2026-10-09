@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Rebuild al publicar contenido (eventos, resultados) desde el CMS:
+  #   POST https://api.github.com/repos/<owner>/<repo>/dispatches  {"event_type": "content-published"}
+  repository_dispatch:
+    types: [content-published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Lint
+        # Genera el informe JSON para SonarQube; si hay errores, los muestra legibles y falla.
+        run: |
+          npx eslint "src/**/*.ts" "src/**/*.html" --format json --output-file eslint-report.json \
+            || { npx eslint "src/**/*.ts" "src/**/*.html"; exit 1; }
+
+      - name: Tests unitarios (gate de cobertura 100 %)
+        run: npm run test:ci
+
+      - name: Build de producción
+        run: npm run build
+
+      - name: Lighthouse CI (rendimiento, accesibilidad, SEO)
+        run: npx --yes @lhci/cli@0.14.0 autorun
+
+      - name: Publicar reportes de Lighthouse
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse
+          path: .lighthouseci/reports
+          include-hidden-files: true
+          retention-days: 14
+
+      - name: Publicar cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/cona-app
+          retention-days: 14
+
+      - name: Publicar build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/cona-app/browser
+          include-hidden-files: true
+          retention-days: 14
+
+  # Despliegue a Hostinger por FTPS. Inactivo hasta definir la variable DEPLOY_ENABLED=true y los secretos
+  # FTP_SERVER, FTP_USERNAME y FTP_PASSWORD (Settings > Secrets and variables > Actions).
+  deploy:
+    needs: build-and-test
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Subir a Hostinger (public_html)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: public_html/
