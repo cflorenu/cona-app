@@ -50,6 +50,11 @@ describe('HomeComponent', () => {
       });
     });
 
+    it('cada disciplina debe tener su propia descripción (sin textos repetidos)', () => {
+      const descriptions = component.disciplines.map((d) => d.description);
+      expect(new Set(descriptions).size).toBe(descriptions.length);
+    });
+
     it('cada disciplina debe tener un ancla estable para los enlaces del footer (/#slug)', () => {
       const ids = Array.from(element.querySelectorAll('.container .row')).map((r) => r.id);
       expect(ids).toEqual(component.disciplines.map((d) => d.slug));
@@ -85,7 +90,8 @@ describe('HomeComponent', () => {
       expect(dialog.getAttribute('role')).toBe('dialog');
       expect(dialog.getAttribute('aria-modal')).toBe('true');
       expect(dialog.getAttribute('aria-labelledby')).toBe('scheduleModalLabel');
-      expect(dialog.querySelector('img')?.alt).toBe('Horario de Clases');
+      expect(dialog.querySelector('app-schedule')).not.toBeNull();
+      expect(dialog.querySelector('img')).toBeNull();
     });
 
     it('debe cerrarse con el botón de cerrar', () => {

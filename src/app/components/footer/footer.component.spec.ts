@@ -44,6 +44,14 @@ describe('FooterComponent', () => {
   };
 
   describe('contacto', () => {
+    it('debe ofrecer los dos números oficiales de WhatsApp', () => {
+      const second = element.querySelector<HTMLAnchorElement>('a[href="https://wa.me/51935491546"]')!;
+
+      expect(second.textContent?.trim()).toBe('+51 935 491 546');
+      expect(second.rel).toBe('noopener noreferrer');
+      expect(element.querySelector('a[href="tel:+51946893354"]')).not.toBeNull();
+    });
+
     it('debe mostrar dirección, teléfono y correo enlazables', () => {
       expect(text('.contact__address')).toContain('Villa El Salvador 15834');
       expect(element.querySelector('a[href="tel:+51946893354"]')).not.toBeNull();

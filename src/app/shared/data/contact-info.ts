@@ -1,5 +1,7 @@
 /** Número principal de WhatsApp de la academia (formato internacional, sin "+"). */
 export const WHATSAPP_NUMBER = '51946893354';
+/** Segundo número oficial de WhatsApp. */
+export const SECONDARY_WHATSAPP_NUMBER = '51935491546';
 
 export const whatsappUrl = (message: string): string =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

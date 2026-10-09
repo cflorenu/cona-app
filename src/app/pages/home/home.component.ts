@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, HostListener, signal } from '@angular/core';
 import { OPTIMIZED_IMAGE } from '../../shared/images/explicit-sizes.directive';
 import { DISCIPLINES } from '../../shared/data/disciplines';
+import { ScheduleComponent } from '../../shared/schedule/schedule.component';
 
 @Component({
   selector: 'app-home',
-  imports: [OPTIMIZED_IMAGE],
+  imports: [OPTIMIZED_IMAGE, ScheduleComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

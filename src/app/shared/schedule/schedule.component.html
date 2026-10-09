@@ -1,0 +1,25 @@
+<div class="schedule">
+  <p class="schedule__days">
+    <app-icon name="clock" />
+    <span>{{ daysLabel }}</span>
+  </p>
+  <ul class="schedule__chips" aria-label="Días de entrenamiento">
+    @for (day of days; track day) {
+      <li [attr.aria-label]="day">{{ day.slice(0, 3) }}</li>
+    }
+  </ul>
+
+  <ul class="schedule__sessions">
+    @for (session of sessions; track session.group) {
+      <li class="session">
+        <span class="session__group">{{ session.group }}</span>
+        <span class="session__time">
+          <time [attr.datetime]="session.start">{{ session.startLabel }}</time>
+          –
+          <time [attr.datetime]="session.end">{{ session.endLabel }}</time>
+        </span>
+        <span class="session__duration">{{ session.duration }}</span>
+      </li>
+    }
+  </ul>
+</div>

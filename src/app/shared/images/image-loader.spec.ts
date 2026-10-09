@@ -11,7 +11,7 @@ describe('optimizedImageLoader', () => {
   });
 
   it('nunca amplía: por encima del original devuelve la variante más grande', () => {
-    expect(optimizedImageLoader({ src: 'assets/horario.png', width: 1920 })).toBe('assets/optimized/horario-394.webp');
+    expect(optimizedImageLoader({ src: 'assets/paul1.jpg', width: 1920 })).toBe('assets/optimized/paul1-540.webp');
   });
 
   it('sin ancho (atributo src de respaldo) devuelve la variante más grande', () => {

@@ -1,4 +1,5 @@
 import { Fighter, FightEvent, ImageAsset } from '../../features/fight-night/models';
+import { CLASS_SESSIONS, SCHEMA_TRAINING_DAYS } from '../data/schedule';
 
 export type JsonLd = Record<string, unknown>;
 
@@ -50,6 +51,12 @@ export const buildAcademyJsonLd = (siteUrl: string): JsonLd => ({
     addressCountry: 'PE'
   },
   geo: { '@type': 'GeoCoordinates', latitude: -12.2134, longitude: -76.9365 },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: SCHEMA_TRAINING_DAYS,
+    opens: CLASS_SESSIONS[0].start,
+    closes: CLASS_SESSIONS[CLASS_SESSIONS.length - 1].end
+  },
   knowsAbout: ['Jiu Jitsu', 'Muay Thai', 'Sambo', 'Boxeo', 'Lucha'],
   sameAs: [
     'https://www.tiktok.com/@paulsobrado',

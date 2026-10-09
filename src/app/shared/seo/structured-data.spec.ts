@@ -50,6 +50,19 @@ describe('structured-data (JSON-LD)', () => {
       expect(ld['geo']['@type']).toBe('GeoCoordinates');
       expect(ld['telephone']).toMatch(/^\+51\d{9}$/);
       expect(ld['sameAs'].length).toBeGreaterThan(0);
+      expect(ld['openingHoursSpecification']).toEqual({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'https://schema.org/Monday',
+          'https://schema.org/Tuesday',
+          'https://schema.org/Wednesday',
+          'https://schema.org/Thursday',
+          'https://schema.org/Friday',
+          'https://schema.org/Saturday'
+        ],
+        opens: '18:30',
+        closes: '21:00'
+      });
     });
 
     it('sin dominio debe omitir url e image', () => {

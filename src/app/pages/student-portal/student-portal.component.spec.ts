@@ -28,13 +28,9 @@ describe('StudentPortalComponent', () => {
     expect(element.querySelector('h1')?.textContent).toContain('Portal');
   });
 
-  it('la sección de horario debe tener el ancla #horario (enlazada desde el footer)', () => {
-    expect(element.querySelector('section#horario img[src="assets/horario.png"]')).not.toBeNull();
-  });
-
-  it('debe mostrar el horario de clases', () => {
-    const img = element.querySelector<HTMLImageElement>('img[src="assets/horario.png"]')!;
-    expect(img.alt).toBe('Horario de clases de la academia');
+  it('la sección #horario (enlazada desde el footer) debe mostrar el horario propio en HTML', () => {
+    expect(element.querySelector('section#horario app-schedule')).not.toBeNull();
+    expect(element.querySelector('img[src*="horario"]')).toBeNull();
   });
 
   it('debe mostrar una tarjeta por disciplina', () => {

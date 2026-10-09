@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { ContactService } from '../../services/contact.service';
 import { ModalService } from '../../services/modal.service';
-import { STUDENT_HELP_WHATSAPP_URL, WHATSAPP_NUMBER } from '../../shared/data/contact-info';
+import { SECONDARY_WHATSAPP_NUMBER, STUDENT_HELP_WHATSAPP_URL, WHATSAPP_NUMBER } from '../../shared/data/contact-info';
 import { DISCIPLINES } from '../../shared/data/disciplines';
 import { IconComponent, IconName } from '../../shared/icon/icon.component';
 
@@ -76,6 +76,7 @@ export class FooterComponent {
   readonly socials = SOCIAL_LINKS;
   readonly mapsUrl = MAPS_DIRECTIONS_URL;
   readonly whatsappUrl = STUDENT_HELP_WHATSAPP_URL;
+  readonly secondaryWhatsappUrl = `https://wa.me/${SECONDARY_WHATSAPP_NUMBER}`;
   readonly newsletterStatus = signal<NewsletterStatus>('idle');
 
   /** Sin @angular/forms (el footer está en todas las páginas): validación nativa del navegador. */
