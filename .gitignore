@@ -48,3 +48,7 @@ eslint-report.json
 
 # Originales de video sin comprimir (no se despliegan)
 media-originals/
+
+# Playwright
+/playwright-report/
+/test-results/
