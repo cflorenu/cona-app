@@ -39,6 +39,11 @@ const baseRoutes: Routes = [
       import('./pages/student-portal/student-portal.component').then((m) => m.StudentPortalComponent)
   },
   {
+    path: 'privacidad',
+    title: 'Política de privacidad | Con Atletas Sur',
+    loadComponent: () => import('./pages/privacy/privacy.component').then((m) => m.PrivacyComponent)
+  },
+  {
     path: 'not-404',
     title: 'Página no encontrada | Con Atletas Sur',
     loadComponent: () => import('./pages/not404/not404.component').then((m) => m.Not404Component)

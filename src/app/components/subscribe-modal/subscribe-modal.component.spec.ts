@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
 import { ModalService } from '../../services/modal.service';
@@ -36,7 +37,7 @@ describe('SubscribeModalComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [SubscribeModalComponent],
-      providers: [{ provide: ContactService, useValue: contactService }]
+      providers: [provideRouter([]), { provide: ContactService, useValue: contactService }]
     }).compileComponents();
 
     modalService = TestBed.inject(ModalService);
@@ -115,6 +116,15 @@ describe('SubscribeModalComponent', () => {
         (o) => o.textContent?.trim()
       );
       expect(options).toEqual(DISCIPLINES.map((d) => d.name));
+    });
+
+    it('debe enlazar la política de privacidad y cerrar el modal al abrirla', () => {
+      const link = element.querySelector<HTMLAnchorElement>('.form-consent a')!;
+      expect(link.getAttribute('href')).toBe('/privacidad');
+
+      link.click();
+
+      expect(component.isOpen()).toBeFalse();
     });
 
     it('debe mostrar el prefijo de país', () => {

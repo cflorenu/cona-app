@@ -156,6 +156,11 @@ describe('FooterComponent', () => {
   });
 
   describe('barra inferior', () => {
+    it('debe enlazar la política de privacidad (barra legal y newsletter)', () => {
+      expect(element.querySelector('.footer-bottom__legal')?.getAttribute('href')).toBe('/privacidad');
+      expect(element.querySelector('.newsletter__help a')?.getAttribute('href')).toBe('/privacidad');
+    });
+
     it('debe mostrar el año actual en el copyright', () => {
       expect(text('.footer-bottom__copy')).toContain(`© ${new Date().getFullYear()} Con Atletas Sur`);
     });

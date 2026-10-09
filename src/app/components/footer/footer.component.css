@@ -205,6 +205,11 @@
   margin: 0;
 }
 
+.newsletter__help a,
+.footer-bottom__legal {
+  color: #fff;
+}
+
 .footer-bottom__credit a {
   color: #fff;
   font-weight: 600;

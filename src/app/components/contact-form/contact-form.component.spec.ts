@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
 import { ContactFormComponent, DEFAULT_COUNTRY_CODE, PHONE_PATTERN } from './contact-form.component';
@@ -32,7 +33,7 @@ describe('ContactFormComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ContactFormComponent],
-      providers: [{ provide: ContactService, useValue: contactService }]
+      providers: [provideRouter([]), { provide: ContactService, useValue: contactService }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactFormComponent);
@@ -48,6 +49,11 @@ describe('ContactFormComponent', () => {
       expect(component.form.invalid).toBeTrue();
       expect(submitButton().textContent?.trim()).toBe('Enviar');
       expect(element.querySelector('.alert')).toBeNull();
+    });
+
+    it('debe informar del tratamiento de datos con enlace a la política de privacidad', () => {
+      const link = element.querySelector<HTMLAnchorElement>('.form-consent a')!;
+      expect(link.getAttribute('href')).toBe('/privacidad');
     });
 
     it('debe mostrar el código de país por defecto en un campo de solo lectura', () => {

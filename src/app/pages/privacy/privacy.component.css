@@ -1,0 +1,30 @@
+.privacy {
+  max-width: 820px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  line-height: 1.7;
+}
+
+.privacy__header {
+  margin-bottom: 2rem;
+}
+
+.privacy h1 {
+  color: var(--brand-purple);
+  font-weight: 700;
+}
+
+.privacy__updated {
+  color: #6c6880;
+  font-size: 0.9rem;
+}
+
+.privacy h2 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.privacy a {
+  color: var(--brand-purple);
+}

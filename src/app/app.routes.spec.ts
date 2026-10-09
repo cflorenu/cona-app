@@ -11,6 +11,7 @@ import { BlogComponent } from './pages/blog/blog.component';
 import { ClasePrivadaComponent } from './pages/clase-privada/clase-privada.component';
 import { HomeComponent } from './pages/home/home.component';
 import { Not404Component } from './pages/not404/not404.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { StudentPortalComponent } from './pages/student-portal/student-portal.component';
 
 describe('app routes', () => {
@@ -29,6 +30,7 @@ describe('app routes', () => {
     ['/clase-privada', ClasePrivadaComponent],
     ['/biography', BiographyComponent],
     ['/student-portal', StudentPortalComponent],
+    ['/privacidad', PrivacyComponent],
     ['/not-404', Not404Component]
   ];
 

@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { ContactService, SubmissionStatus } from '../../services/contact.service';
 import { ModalService } from '../../services/modal.service';
 import { FREE_CLASS_WHATSAPP_URL } from '../../shared/data/contact-info';
@@ -23,7 +24,7 @@ export const PERU_MOBILE_PATTERN = /^9\d{8}$/;
 
 @Component({
   selector: 'app-subscribe-modal',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './subscribe-modal.component.html',
   styleUrl: './subscribe-modal.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

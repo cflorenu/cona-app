@@ -59,6 +59,10 @@
       <input type="text" id="gotcha" formControlName="_gotcha" tabindex="-1" autocomplete="off">
     </div>
 
+    <p class="form-consent text-center">
+      Al enviar aceptas nuestra <a routerLink="/privacidad">Política de privacidad</a>.
+    </p>
+
     <div class="text-center">
       <button type="submit" class="btn btn-warning" [disabled]="isSubmitting()">
         {{ isSubmitting() ? 'Enviando...' : 'Enviar' }}

@@ -80,6 +80,10 @@
                 </div>
               }
 
+              <p class="form-consent">
+                Al enviar aceptas nuestra <a routerLink="/privacidad" (click)="close()">Política de privacidad</a>.
+              </p>
+
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-warning" [disabled]="isSubmitting()">
                   {{ isSubmitting() ? 'Enviando...' : 'Quiero mi clase gratis' }}
