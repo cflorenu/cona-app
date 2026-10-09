@@ -1,0 +1,128 @@
+// Bootstrap 5.3: solo los módulos que usa la aplicación.
+// Para añadir un componente (p. ej. dropdown, tables), importar su parcial en la sección "Componentes".
+
+// 1. Configuración (no genera CSS)
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// 2. Base
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// 3. Componentes
+@import "bootstrap/scss/forms/labels";
+@import "bootstrap/scss/forms/form-text";
+@import "bootstrap/scss/forms/form-control";
+@import "bootstrap/scss/forms/form-select";
+@import "bootstrap/scss/forms/input-group";
+@import "bootstrap/scss/forms/validation";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/modal";
+
+// 4. Helpers y utilidades (al final para que tengan prioridad)
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+// Tipografía display autoalojada con URL estable (permite <link rel="preload"> en las páginas que la usan).
+@font-face {
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/bebas-neue-latin-400-normal.woff2") format("woff2");
+}
+
+// 5. Paleta de marca (header, footer y CTAs). Cambiar aquí para ajustar los colores de todo el sitio.
+:root {
+  --brand-purple: #4b0082;
+  --brand-purple-hover: #5f1a99;
+  --brand-gold: #ffc107;
+  --brand-gold-hover: #ffcd38;
+  --ink: #1f1640;
+}
+
+// 6. Design tokens "Fight Night" (componentes de eventos y roster).
+// Oscuro por defecto (consumo nocturno / transmisiones); `data-theme="light"` en un ancestro activa el modo claro.
+:root {
+  --fn-font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+  --fn-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --fn-bg: #0b0b10;
+  --fn-surface: #15151d;
+  --fn-surface-2: #1f1f2b;
+  --fn-border: #2c2c3a;
+  --fn-text: #f4f4f6;
+  --fn-text-muted: #a3a3b5;
+
+  --fn-gold: #ffc107; // marca: 11:1 de contraste sobre --fn-bg
+  --fn-purple: #8b5cf6;
+  --fn-red: #e5383b; // esquina roja
+  --fn-blue: #3a86ff; // esquina azul
+  --fn-live: #ff2d55;
+  --fn-success: #22c55e;
+
+  --fn-radius: 14px;
+  --fn-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --fn-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --fn-bg: #f5f5f8;
+  --fn-surface: #ffffff;
+  --fn-surface-2: #f0eff6;
+  --fn-border: #dcdbe6;
+  --fn-text: #121218;
+  --fn-text-muted: #55556a;
+  --fn-gold: #8a6500; // ámbar oscuro: 5:1 sobre blanco (WCAG AA)
+  --fn-purple: #5b21b6;
+  --fn-shadow: 0 10px 30px rgba(20, 20, 40, 0.12);
+}
+
+// Botón flotante de WhatsApp (global: posición fija en todas las páginas).
+.whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1020;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  font-size: 1.6rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s;
+}
+
+.whatsapp-float:hover {
+  color: #fff;
+  transform: scale(1.06);
+}
+
+// Accesibilidad: sin animaciones ni transiciones para quien prefiere movimiento reducido (todo el sitio).
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
